@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>OHMYMAP</title>
+
+<link rel="stylesheet" type="text/css" href="map.css" />
+<link rel="stylesheet" href="leaflet/leaflet.css" />
+<script src="leaflet/leaflet.js"></script>
+<script src="http://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=GwQyYzOMGtsCd3VzDX9xSyUXH4NgqedV"></script>
+<script src="http://www.mapquestapi.com/sdk/leaflet/v2.s/mq-geocoding.js?key=GwQyYzOMGtsCd3VzDX9xSyUXH4NgqedV"></script>
+
+<script>
+window.onload = function() {
+  var map = L.map('map', {
+    layers: MQ.mapLayer(),
+    center: [ 44.06884, -123.07022],
+    zoom: 10
+
+  });
+
+ map.on('click', onMapClick);
+ var marker = L.marker()
+
+
+
+function onMapClick(e) {
+        marker.setLatLng(e.latlng).addTo(map);
+        marker.bindPopup(e.latlng.toString());
+        geocode.reverse(e.latlng);
+}
+
+geocode = MQ.geocode().on('success', function(e) {
+  marker.bindPopup(geocode.describeLocation(e.result.best).toString());
+});
+}
+</script>
+</head>
+
+
+<body>
+
+  <div id="map"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+kitchen 10 14
+laundry 4 5
+dining 8 12
+living 14 15
+bedroom1 10 10
+bedroom2 9 9
+bedroom3 12 15
+bath1 6 8
+bath2 8 8
+wine_cellar 20 30

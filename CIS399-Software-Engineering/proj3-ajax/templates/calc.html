@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>ACP Controle Times</title>
+
+  <!-- 'viewport' is used by bootstrap to respond to device size -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Javascript:  JQuery from a content distribution network (CDN) -->
+  <script
+     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+  </script>
+
+  <!-- Bootstrap includes javascript and css  (must follow jquery) -->
+  <link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+   </script>
+
+  <!-- <script type="text/javascript"  -->
+  <!--    src="/static/js/calc.js"> -->
+  <!-- </script> -->
+</head>
+
+   <!-- Our own style sheet -->
+   <link rel="stylesheet" href="/static/css/calc.css" />
+
+<body>
+<!-- bootstrap requires a 'container' div around content -->
+<div class="container">
+
+<h1>ACP Brevet Closing times</h1>
+
+  <!--
+  -- If there are any warnings or other messages from a prior
+  -- request to the server, 
+  -- they appear above the rest of the content, just until the next 
+  -- action.  (This is only on request/response transactions that
+  -- result in regenerating the page, not on every xmlhttp request.) 
+  -->
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<!-- Design on bootstrap grid -->
+{% for i in range(5) %}
+<div class="row">
+  <div class="col-md-2">
+    <input type="text" id={{ i  }} class="form-control" class="distance"
+     name="distance" placeholder="Distance"/>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control"
+      name="location" placeholder="Location" />
+  </div>
+  <div class="col-md-4">
+    <span class="times form-control">Times</span>
+  </div>
+</div>
+{% endfor %}
+<div class="row">
+  <div class="col-md-2">
+  Distance:
+    <select type="text" class="form-control" name="bev_dist" id="bev_dist" >
+      <option value="200">200km</option>
+      <option value="300">300km</option>
+      <option value="400">400km</option>
+      <option value="600">600km</option>
+      <option value="1000">1000km</option>
+    </select>
+    </div>
+  <div class="col-md-4">
+  Miles or Kilometers:
+    <select type="text" class="form-control" name="units" class="units">
+      <option value="False">Kilometers</option>
+      <option value="True">Miles</option>
+    </select>
+  </div>
+    <div class="col-md-4">
+  Enter Start Time (24-hour):
+    <input type="text" class="form-control"
+      name="currenttime" value="MM/DD/YY HH:MM" />
+  </div>
+</div>
+<span id="warning" style="background-color: #FFFF00"></span>
+</form>
+
+<script type="text/javascript">
+
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+  $(document).ready(function(){
+   // Do the following when the page is finished loading
+      //var for current time (function checking problems and adjusting if adjusted)
+      // When a field named 'miles' is changed ...
+      var unitofmeasure = $('select[name="units"]').val();
+      $('select[name="units"]').change(
+        function(){
+          unitofmeasure = $(this).val();
+          //checks to see if the unit of measure is the same in the global, if not ,then it changes it to it
+        }
+      );
+      $('input[name="distance"]').change(
+          // ... execute this function
+          function(){
+              $("#warning").text("")//sets the warning's text to nothing
+              var target = $(this).parents(".row").find(".times");
+              var e_currenttime = $('input[name="currenttime"]').val();
+              var first_checkpoint = "False";
+              var total_distance = 0;
+              var this_id = ($(this).attr("id"));
+              var e_distance = $(this).val();
+              // AJAX request
+              if (unitofmeasure = false){ // raises the warning flag if it is not whitin the threashold of 10%
+                if (e_distance > ($("#bev_dist").val() * 1.10)){
+                  $("#warning").text("The number you entered previously is greater than the bev distance")
+                }
+              } else {
+                if (e_distance * 1.069 > ($("#bev_dist").val() * 1.10)){
+                  $("#warning").text("The number you entered previously is greater than the bev distance")
+                }
+              }
+                if (!isNaN(e_distance) && !e_distance == ""){ // This is checking for input errors
+                  if (this_id == 0){
+                    first_checkpoint = "True";
+                    last_opentime = "";
+                  } 
+                  $.getJSON($SCRIPT_ROOT + '/_calc_times',
+                    // The objects to pass to the server
+                    { distance: e_distance, currenttime: e_currenttime, units: unitofmeasure, 
+                      first_checkpoint: first_checkpoint, total_distance: total_distance},
+                    // The function to call with the response
+                    function(data) {
+                       var opentime = data.opentime;
+                       var closetime = data.closetime;
+                       last_opentime = data.last_opentime;
+                       target.text(opentime + " - " + closetime);
+                  }) // End of the call to getJSON
+                }
+          });  // End of the function to be called when field changes     
+     });   // end of what we do on document ready
+
+</script>
+
+</div>
+</body> </html>

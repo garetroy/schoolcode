@@ -1,0 +1,26 @@
+Bias = 2^k-1 -1
+Bias = 2^5 -1 = 31
+
+a) 1.0 ->
+Signbit: 0
+Exp: 0 = so exp has to be 31 = 011111
+Mantessa: 000000000.....
+->0011111000000000
+
+b) 8.0 ->
+Signbit: 0
+Exp: 3 (because 8 is writen as 1000 and we need to move the decimal 3 places) = 34 - 31; 34 = 100010
+Mantessa: 000000000...
+->0100010000000000
+
+c) 9.5 ->
+Signbit: 0
+Exp: 4 = 35 - 31; 35 = 100011
+Mantessa: 001100000
+->0100011001100000
+
+d) -87.125 ->
+Signbit:1
+Exp: 6 = 37 - 31; 37 = 100101
+Matessa: 010111001
+-> 1100101010111001

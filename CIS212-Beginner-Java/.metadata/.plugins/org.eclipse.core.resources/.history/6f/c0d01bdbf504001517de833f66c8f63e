@@ -1,0 +1,27 @@
+import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+
+class Producer implements Runnable {
+	private ArrayBlockingQueue<String> _queue;
+
+	public Producer() {
+		_queue = Main.getQueue();
+	}
+
+	@Override
+	public synchronized void run() {
+		for (int i = 1; i != Main.SIZE + 1; ++i) {
+			if(i % 1000 == 0){
+				System.out.println( i + " Strings produced");
+			}
+			String randomString = UUID.randomUUID().toString();
+			try {
+				Thread.yield();
+				_queue.put(randomString);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}

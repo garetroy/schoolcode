@@ -1,0 +1,114 @@
+Begin execution 1
+Blender: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+PNMreader: about to execute
+PNMreader: done executing
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+Throwing Exception: (LRConcat): LRConcat: Heights must match 672, 1344
+Caught exception in Execution1!
+Done with execution 1
+Begin execution 2
+Blender: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+PNMreader: about to execute
+PNMreader: done executing
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+TBConcat: done updating input1
+TBConcat: about to update input2
+TBConcat: done updating input2
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+Throwing Exception: (LRConcat): LRConcat: No input 2!
+Caught exception in Execution2!
+Done with execution 2
+Begin execution 3
+Blender: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+PNMreader: about to execute
+PNMreader: done executing
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+TBConcat: done updating input1
+TBConcat: about to update input2
+TBConcat: done updating input2
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+TBConcat: done updating input1
+TBConcat: about to update input2
+TBConcat: done updating input2
+Blender: done updating input1
+Blender: about to update input2
+Blender: done updating input2
+Throwing Exception: (Blender): Blender: Invalid factor for Blender:1.200000
+Caught exception in Execution3!
+Done with execution 3
+Begin execution 4
+Blender: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+TBConcat: about to update input1
+LRConcat: about to update input1
+Shrinker: about to update input1
+PNMreader: about to execute
+PNMreader: done executing
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+TBConcat: done updating input1
+TBConcat: about to update input2
+TBConcat: done updating input2
+Shrinker: done updating input1
+Shrinker: about to update input2
+Shrinker: done updating input2
+LRConcat: done updating input1
+LRConcat: about to update input2
+LRConcat: done updating input2
+TBConcat: done updating input1
+TBConcat: about to update input2
+TBConcat: done updating input2
+Blender: done updating input1
+Blender: about to update input2
+Blender: done updating input2
+No exception for Execution4!
+Done with execution 4

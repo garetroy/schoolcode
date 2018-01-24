@@ -1,0 +1,29 @@
+A breif description of what I am doing..
+
+I convert to Binary, then I check to see if the 
+first bit is 1 or 0 (negitive). I then look at the 
+next significan bit that is no zero and add it to 127 to get the mantessa. I then convert using the mantessa to decimal from binary.
+
+
+a) 0x00000000 -> 0
+
+b) 0x40F00000 -> 01000000111100000000000000000000 ->
+Sigbit:0
+Exponent: 10000001 = 129 Then applying Bias: 2
+Mantessa: 1.111000000...(dots signify continuation of 0's)
+Applying Exponent: 111.1000.....
+-> 7.5
+
+c) 0x41120000 -> 01000001000100100000000000000000 ->
+Sigbit:0
+Exponent: 10000010 = 130 Then applying Bias: 3
+Mantessa: 1.00100100...(dots signify continuation of 0's)
+Applying Exponent: 1001.001000.....
+-> 9.125
+
+d) 0xC39D0000 -> 11000011100111010000000000000000 ->
+Sigbit:1
+Exponent: 10000111 = 135 Then applying Bias: 8
+Mantessa: 1.0011101000....(dots signify continuation of 0's)
+Applying Exponent: 100111010.0000.....
+-> -314.0

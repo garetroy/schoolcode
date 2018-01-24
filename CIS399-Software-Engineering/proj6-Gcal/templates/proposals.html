@@ -1,0 +1,20 @@
+<div class="row">
+{% if session.freetimecomparestr is defined  %}
+<h3>Select Proposals</h3>
+  <form action="/select_proposals" method="post">
+  {% for proposal in session.freetimecomparestr %}
+          <div class="col-md-4">
+              <label class="checkbox">
+                <input type="checkbox" name="time"
+                    value="{{ proposal }}">{{ proposal }}</input>
+              </label>
+          </div>
+         {% if loop.index is divisibleby 3 %}
+            </div><div class="row">
+         {% endif %}
+  {% endfor %}
+</div>
+<div class="row">
+    <button class="btn btn-primary" type="submit">Submit</button>
+</div>
+</form>

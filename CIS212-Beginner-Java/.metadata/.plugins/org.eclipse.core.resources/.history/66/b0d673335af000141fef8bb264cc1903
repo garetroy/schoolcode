@@ -1,0 +1,25 @@
+public class static paintcanvas extends JPanel{
+		public void purpledraw() {
+			
+		}
+		
+		public void greendraw() {
+			
+		}
+		
+		public void blackdraw() {
+			
+		}
+		
+		public void reddraw() {
+			
+		}
+		
+		public void yellowdraw(){
+			
+		}
+		
+		public void whitedraw(){
+			
+		}
+}

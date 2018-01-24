@@ -1,0 +1,88 @@
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+
+public class Client extends JFrame {
+	private static final int PORT = 12349;
+	private static final String SHUTDOWN = "";
+	
+
+	private ObjectOutputStream _output;
+	private ObjectInputStream _input;
+	private JTextArea _txtArea;
+	private JTextField _txtField;
+
+	public Client() {
+		setLayout(new BorderLayout());
+		_txtArea = new JTextArea(12, 40);
+		_txtArea.setEditable(false);
+		add(new JScrollPane(_txtArea), BorderLayout.CENTER);
+		_txtField = new JTextField(40);
+		_txtField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				String message = _txtField.getText();
+				sendMessage(message);
+				if(message.equals(SHUTDOWN)){
+					exitGUI();
+				}
+				_txtField.setText("");
+			}
+		});
+		add(_txtField, BorderLayout.SOUTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		pack();
+		setVisible(true);
+		try {
+			InetAddress address = InetAddress.getLocalHost();
+			Socket socket = new Socket(address, PORT);
+			_output = new ObjectOutputStream(socket.getOutputStream());
+			_output.flush();
+			_input = new ObjectInputStream(socket.getInputStream());
+			_output.flush();
+			boolean running = true;
+			_txtArea.append("Enter a number, blank line to quit: \n");
+			while (running) {
+				String message = _txtField.getText();
+				_txtArea.append(message + "\n");
+				_output.writeUTF(message);
+				_output.flush();
+			}
+			_input.close();
+			_output.close();
+			socket.close();			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}		
+	}
+	
+	private void sendMessage(String message) {
+		if (_output == null) {
+			return;
+		}
+		try {
+			_output.writeUTF(message);
+			_output.flush();
+		} catch (IOException ex) {
+			System.err.println("Cannot Send" + ex);
+		}
+	}
+	private void exitGUI(){
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+	public static void main(String[] args) {
+		new Client();
+	}
+}

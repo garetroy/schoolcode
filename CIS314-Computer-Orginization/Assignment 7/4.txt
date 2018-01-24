@@ -1,0 +1,1 @@
+When you increase the vectorsize, the time increases. But using loop unrolling and parrallel, the time decreases. (not very significant in difference)

@@ -1,0 +1,46 @@
+.pos 0
+
+init:
+irmovl Stack, %esp
+irmovl Stack, %ebp
+call Main
+halt
+
+Main:
+	pushl %ebp 				//pushes ebp onto stack
+	rrmovl %ebp, %esp 		//sets stack and base pointer to eachother
+	ret
+	popl %ebp				//pops base pointer
+
+
+
+g:
+	pushl %ebp 				//pushes ebp onto stack
+	rrmovl %ebp, %esp 		//sets stack and base pointer to eachother
+	mrmovl 12(%ebp), %ecx 	//creates int a
+	mrmovl 16(%ebp), %edx 	//creates int b
+	rrmovl %ecx, %edi		//moves a into function variable %edi
+	call f 					//calls f
+	rrmovl %eax, %ecx		//moves what f returned into %ecx
+	rrmovl %edx, %edi		//moves b into function variable %edi
+	call f 					//calls f
+	addl %ecx, %eax			//adds f(a) and f(b) into %eax
+	popl %ebp				//pops base pointer
+	ret 					//returns value	
+
+
+f:
+	pushl %ebp 				//pushes ebp onto stack
+	rrmovl %ebp, %esp 		//sets stack and base pointer to eachother
+	rrmovl %edi, %eax 		//creates int x from %edi
+	addl %eax, %eax
+	addl %eax, %eax			//we addl 4 times, because 2^4 is 16. Thus
+	addl %eax, %eax			//multiplying by 16
+	addl %eax, %eax
+	rrmovl %ebp, %esp		//sets the bp to sp
+	popl %ebp				//pops base pointer
+	ret    					//retuns value
+
+
+.pos 0x100
+Stack:

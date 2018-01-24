@@ -1,0 +1,30 @@
+package assignment5;
+
+public class person {
+	
+	private int phonenumber;
+	private String last_name;
+	private String first_name;
+	
+	public person (String phone, String last_name, String first_name){
+		phonenumber = phone;
+		this.last_name = last_name;
+		this.first_name = first_name;
+	}
+	
+	public static void print(person ent){
+		System.out.println(ent.phonenumber + " " + ent.last_name + " " + ent.first_name);
+	}
+	
+	public String getName(){
+		return last_name + first_name;
+	}
+	public String getPhone(){
+		return phonenumber;
+	}
+	
+	public int compareTo(person n){
+		int lastCmp = last_name.compareTo(n.last_name);
+		return (lastCmp != 0 ? lastCmp : last_name.compareTo(n.last_name));
+	}
+}

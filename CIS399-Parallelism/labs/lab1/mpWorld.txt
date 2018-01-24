@@ -1,0 +1,10 @@
+Alien #0 says hello, they're  #0 in line.
+Alien #2 says hello, they're  #6 in line.
+Alien #1 says hello, they're  #3 in line.
+Alien #3 says hello, they're  #8 in line.
+Alien #0 says hello, they're  #1 in line.
+Alien #2 says hello, they're  #7 in line.
+Alien #1 says hello, they're  #4 in line.
+Alien #3 says hello, they're  #9 in line.
+Alien #0 says hello, they're  #2 in line.
+Alien #1 says hello, they're  #5 in line.

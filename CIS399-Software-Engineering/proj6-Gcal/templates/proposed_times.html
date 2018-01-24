@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en"> <head>
+<title>Appointments</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css"
+     href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css"
+/>
+
+<link rel="stylesheet" type="text/css"
+ href="/static/js/node_modules/bootstrap-daterangepicker/daterangepicker.css"
+/>
+
+<link rel="stylesheet" type="text/css"
+    href="/static/css/busy.css"
+/>
+
+<!-- jquery from a content distribution network; probably cached -->
+<script type="text/javascript"
+     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+
+
+<!-- The rest of our javascript dependencies are bundled and -->
+<!-- 'minified' by 'browserify'  -->
+<script type="text/javascript" 
+   src="/static/js/busy.min.js">
+</script>
+
+</head>
+
+<body>
+<div class="container">
+
+{% for times in session.proposed %}
+<div>Your friend preposes that they can meet at {{ times }} </div>
+{% endfor %}
+{% if session.proposed is defined  %}
+<div> To rechoose proposals, replace the ending url with /proposals Share this link to the person whom you are arranging times with</div>
+{% endif %}
+</div>  <!-- container (for bootstrap) -->
+</body> </html>

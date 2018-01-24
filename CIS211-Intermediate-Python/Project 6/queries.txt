@@ -1,0 +1,252 @@
+1.What are the first and last names of all the customers?
+sqlite> SELECT first_name, last_name FROM customer limit 5;
+first_name  last_name 
+----------  ----------
+Mary        Smith     
+Patricia    Johnson   
+Linda       Williams  
+Barbara     Jones     
+Elizabeth   Brown     
+
+2.What are the e-mail addresses of customers whos first name is "Willard"?
+sqlite> SELECT email FROM customer WHERE first_name = "Willard";
+email                             
+----------------------------------
+willard.lumpkin@sakilacustomer.org
+
+
+3.How many customers are there?
+sqlite> SELECT COUNT(*) FROM customer;
+	599
+
+4.How many customers show at store number 1?
+sqlite> SELECT count(store_id) FROM customer;
+count(store_id)
+---------------
+599            
+
+
+5.How much does it cost to rent the film named "Virtual Spoilers"?
+sqlite> SELECT rental_rate FROM film WHERE title="Virtual Spoilers";
+rental_rate
+-----------
+4.99   
+
+6.Do any films have the word "Princess" in the title?
+sqlite> SELECT COUNT(*) FROM film WHERE title LIKE "%princess%";
+COUNT(*)  
+----------
+2        
+
+7.What are the titles of the films that are longer than 180 minutes?
+sqlite> SELECT title FROM film WHERE length > 180;
+title           
+----------------
+Analyze Hoosiers
+Baked Cleopatra 
+Catch Amistad   
+Chicago North   
+Conspiracy Spiri
+Control Anthem  
+Crystal Breaking
+Darn Forrester  
+Frontier Cabin  
+Gangs Pride     
+Haunting Pianist
+Home Pity       
+Hotel Happiness 
+Intrigue Worst  
+Jacket Frisco   
+King Evolution  
+Lawless Vision  
+Love Suicides   
+Monsoon Cause   
+Moonwalker Fool 
+Muscle Bright   
+Pond Seattle    
+Records Zorro   
+Reds Pocus      
+Runaway Tenenbau
+Saturn Name     
+Scalawag Duck   
+Searchers Wait  
+Smoochy Control 
+Soldiers Evoluti
+Sons Interview  
+Sorority Queen  
+Star Operation  
+Sweet Brotherhoo
+Theory Mermaid  
+Wife Turn       
+Wild Apollo     
+Worst Banger    
+Young Language  
+
+	
+8.How many films have a "G" rating and are less than 60 mintues long?
+sqlite> SELECT COUNT(*) FROM film WHERE rating = "G" AND length < 60;
+COUNT(*)  
+----------
+21  
+
+9.What is the maximum replacement cost for any film?
+sqlite> SELECT MAX(replacement_cost) FROM film; 
+MAX(replacement_cost)
+---------------------
+29.99 
+
+10.Print a table that lists the different types of ratings and the number of films that have that rating.
+sqlite> SELECT rating, COUNT(*) FROM film group by rating;
+rating      COUNT(*)  
+----------  ----------
+G           178       
+NC-17       210       
+PG          194       
+PG-13       223       
+R           195    
+
+11.How many actors starred in the film named "Scalawag Duck"?
+Rsqlite> SELECT COUNT(*) FROM actor JOIN film_actor USING (actor_id) JOIN film USING (film_id) WHERE title = "Scalawag Duck";
+COUNT(*)  
+----------
+5       
+
+12.What are the film IDs of movies starring Jude Cruise?
+sqlite> SELECT film_id FROM film_actor JOIN actor USING (actor_id) WHERE first_name = "Jude" AND last_name = "Cruise";
+film_id   
+----------
+16        
+34        
+101       
+114       
+122       
+134       
+144       
+153       
+192       
+213       
+258       
+267       
+317       
+340       
+393       
+437       
+447       
+502       
+592       
+605       
+637       
+685       
+707       
+714       
+717       
+737       
+767       
+852       
+891       
+918       
+
+
+13.What language was "Ace Goldfinger" filmed in?
+sqlite> SELECT name AS language FROM language JOIN film USING (language_id) WHERE title = "Ace Goldfinger";
+language  
+----------
+Japanese  
+
+14.Produce a table that shows how many films each customer has rented.
+sqlite> SELECT customer.first_name, customer.last_name, count(*) FROM customer JOIN rental USING (customer_id) group by customer_id limit 5;
+first_name  last_name   count(*)  
+----------  ----------  ----------
+Mary        Smith       32        
+Patricia    Johnson     27        
+Linda       Williams    26        
+Barbara     Jones       22        
+Elizabeth   Brown       38     
+
+15.How many films did the cutomer named Smith rent?
+sqlite> SELECT COUNT(inventory_id) FROM rental JOIN customer USING (customer_id) WHERE last_name = "Smith";
+COUNT(inventory_id)
+-------------------
+32          
+
+16.Which customers have not returned films?
+sqlite> SELECT first_name, last_name FROM customer JOIN rental USING (customer_id) WHERE return_date IS null limit 5;
+first_name  last_name 
+----------  ----------
+Gail        Knight    
+Gregory     Mauldin   
+Louise      Jenkins   
+Willie      Howell    
+Emily       Diaz    
+
+17.Which actors starred in "Splash Gump"?
+sqlite> SELECT first_name, last_name  FROM actor JOIN film_actor USING (actor_id) JOIN film USING (film_id) WHERE title = "Splash Gump";
+first_name  last_name 
+----------  ----------
+Penelope    Guiness   
+Jennifer    Davis     
+Uma         Wood      
+Cameron     Streep    
+Christian   Neeson    
+Ray         Johansson 
+Gene        Willis    
+Morgan      Williams  
+Humphrey    Willis    
+Al          Garland   
+
+
+18.Which films has Penelope Guiness starred in?
+sqlite> SELECT title FROM film JOIN film_actor USING (film_id) JOIN actor USING (actor_id) WHERE first_name = "Penelope" AND last_name = "Guiness";
+title           
+----------------
+Academy Dinosaur
+Anaconda Confess
+Angels Life     
+Bulworth Command
+Cheaper Clyde   
+Color Philadelph
+Elephant Trojan 
+Gleaming Jawbrea
+Human Graffiti  
+King Evolution  
+Lady Stage      
+Language Cowboy 
+Mulholland Beast
+Oklahoma Jumanji
+Rules Human     
+Splash Gump     
+Vertigo Northwes
+Westward Seabisc
+Wizard Coldblood
+
+
+19. What are the names of the films rented by the customer named Knight?
+sqlite> SELECT title FROM film JOIN inventory USING (film_id) JOIN rental USING (inventory_id) JOIN customer USING (customer_id) WHERE last_name = "Knight";
+title        
+-------------
+Jericho Mulan
+Frost Head   
+Clerks Angels
+Wife Turn    
+Expecations N
+Lawless Visio
+Soup Wisdom  
+Heartbreakers
+Bikini Borrow
+Attacks Hate 
+Cupboard Sinn
+Princess Gian
+Cyclone Famil
+Platoon Insti
+Knock Warlock
+Excitement Ev
+Right Cranes 
+Hyde Doctor  
+Fatal Haunted
+Chasing Fight
+Falcon Volume
+Tomorrow Hust
+Half Outfield
+Horror Reign 
+Borrowers Bed
+

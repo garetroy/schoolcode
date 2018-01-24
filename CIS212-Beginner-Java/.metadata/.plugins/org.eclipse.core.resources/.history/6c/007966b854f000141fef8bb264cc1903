@@ -1,0 +1,32 @@
+import java.awt.Color;
+import java.awt.Point;
+import java.util.ArrayList;
+
+
+public class Stroke {
+	
+	
+	public Stroke() {
+		private ArrayList<Point> _stroke;
+		private Color _color;
+		private int _size;
+
+		public Stroke(ArrayList<Point> stroke, Color color, int size) {
+			_stroke = stroke;
+			_color = color;
+			_size = size;
+		}
+
+		public ArrayList<Point> returnStroke() {
+			return _stroke;
+		}
+
+		public Color returnColor() {
+			return _color;
+		}
+
+		public int returnSize() {
+			return _size;
+		}
+
+}

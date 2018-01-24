@@ -1,0 +1,116 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import java.awt.Color;
+
+import javax.swing.JLabel;
+import javax.swing.event.MouseInputAdapter;
+
+public class PaintCanvas extends JPanel{
+	
+		public Color _color;
+		public int _size;
+		public ArrayList<Stroke> _strokes;
+		public ArrayList<Point> _points;
+		
+		public PaintCanvas(){
+			
+			_points = new ArrayList<Point>();
+			_color = Color.BLACK;
+			
+			MouseInputAdapter mpa = new MouseInputAdapter();
+			addMouseMotionListener(mpa);
+		}
+		
+		
+		public void pinkdraw() {
+			if (_color != Color.PINK){
+				_color = Color.PINK;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void greendraw() {
+			if (_color != Color.GREEN){
+				_color = Color.GREEN;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void blackdraw() {
+			if (_color != Color.BLACK){
+				_color = Color.BLACK;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void reddraw() {
+			if (_color != Color.RED){
+				_color = Color.RED;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void yellowdraw(){
+			if (_color != Color.YELLOW){
+				_color = Color.YELLOW;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void whitedraw(){
+			if (_color != Color.WHITE){
+				_color = Color.WHITE;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void smalldraw(){
+			if (_size != 5){
+				_size = 5;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void mediumdraw(){
+			if (_size != 10){
+				_size = 10;
+				_points = new ArrayList<Point>();
+			}
+		}
+		
+		public void largedraw(){
+			if (_size != 20){
+				_size = 20;
+				_points = new ArrayList<Point>();
+			}
+		}
+
+		public void hugedraw(){
+			if (_size != 40){
+				_size = 40;
+				_points = new ArrayList<Point>();
+			}
+		}
+
+		public void cleardraw(){
+			_strokes = new ArrayList<Stroke>();
+			_points = new ArrayList<Point>();
+		}
+}
+

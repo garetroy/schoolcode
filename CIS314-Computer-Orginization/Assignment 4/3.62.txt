@@ -1,0 +1,2 @@
+A) M is 13, this is because ebx is incremented by 13 positions each time the loop runs.
+B)%edi, %ecx

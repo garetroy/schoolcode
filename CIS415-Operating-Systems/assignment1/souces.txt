@@ -1,0 +1,10 @@
+
+Discussed with Howard Lin
+http://stackoverflow.com/questions/5901181/c-string-append
+https://linux.die.net/man/3/fgets
+http://stackoverflow.com/questions/10196415/how-to-get-first-3-lines-of-a-file-and-then-everything-else
+https://www.tutorialspoint.com/c_standard_library/c_function_sscanf.htm
+http://vim.wikia.com/wiki/Copy,_cut_and_paste
+https://www.cs.swarthmore.edu/~newhall/unixhelp/C_files.html
+http://stackoverflow.com/questions/23168364/error-request-for-member-in-something-not-a-structure-or-union
+http://stackoverflow.com/questions/14099473/how-to-scanf-only-integer-and-repeat-reading-if-the-user-enter-non-numeric-chara

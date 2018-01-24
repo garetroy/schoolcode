@@ -1,0 +1,27 @@
+-c mlistLL.c
+mv mlistLL.o mlist.o
+cc -o finddupl finddupl.o mentry.o mlist.o
+[cis415@cis415-arch assignment1]$ ./finddupl S.txt 
+Potential duplicate
+===================
+Rogers, Fred
+123 Neighbor Place
+Latrobe, PA  15650
+==========
+Rogers, Mr
+123 Neighbor Drive
+Latrobe, PA  15650
+
+Potential duplicate
+===================
+Rogers, Fred
+123 Neighbor Place
+Latrobe, PA  15650
+Sventek, Joe
+Computer and Information Science Department
+Eugene, OR  97403
+==========
+Sventek, Prof J
+University of Oregon
+Eugene, OR  97403
+

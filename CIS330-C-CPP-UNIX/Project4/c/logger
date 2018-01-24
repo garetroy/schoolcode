@@ -1,0 +1,8 @@
+Blender: about to update input1, (starting timer)
+Color: about to execute at time (starting timer)
+Color: done executing, took: 0.581360s
+Blender: done updating input1, took: 0.581580s
+Blender: about to update input2, (starting timer)
+Color: about to execute at time (starting timer)
+Color: done executing, took: 0.549520s
+Blender: done updating input2, took: 0.549630s

@@ -1,0 +1,29 @@
+####Fetch####
+M1[pc] -> icode:ifun	//Puts the instruction from memory into the instruction
+						// (fetches the instruction)
+valP -> PC + 1			//Preperation for incrementing PC by one
+
+####Decode####
+R[%ebp] -> valA			//This stores the value at %ebp at A(this will be utilized for retriving an item from memory)
+R[%ebp] -> valB			//This stores the value at %ebp at B(this will be utilized for creating room)
+
+####Execute####
+valB + 4 -> valE 		//This is preparing creating room on the stack
+
+####Memory#####
+M4[valA] -> valM		//This gets whatever was at location (valA) in memory and stores it for later use as valM
+
+####WB####
+valE -> R[%esp]			//This put's the stack pointer at the point on the stack we defined in execute, for the purpose of creating 						// room on the stack
+valM -> R[%ebp]			//This puts the value from memory, we defined in the memory stage, to go into ebp, which we have room for 							// now.
+
+####PCUPDATE####
+valP -> PC 				//This then updates the PC counter, with the valP that we defined in the fetch instruction.
+
+
+
+
+##########NOTES###########
+
+The arrows may be backwards from what the problem refers us to use (figure 4.20), but I beleive that pointing arrows in this direction should be relitivly equivalent. The reason for me flipping the equation is to reduce the complexness and to help further
+my comprehension. 

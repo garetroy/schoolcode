@@ -1,0 +1,81 @@
+	.pos 0
+
+init: 
+	irmovl Stack, %esp
+	irmovl Stack, %ebp
+	call main
+	halt
+
+	.align 10
+array:						#Defining Array
+	.long 0x1
+	.long 0x3
+	.long 0x2
+	.long 0x9
+	.long 0xc
+	.long 0x4
+	.long 0x1
+	.long 0x2
+	.long 0x4
+	.long 0x6
+
+main:
+	pushl %ebp
+	rrmovl %esp, %ebp
+	irmovl array, %edi 		#Pushes the array onto the stack
+	pushl %edi
+	call bubbleinit			#Calls bubble int
+	rrmovl %ebp, %esp
+	popl %ebp
+	ret
+
+bubbleinit:
+	pushl %ebp
+	rrmovl %esp, %ebp
+	irmovl $0, %ebx			#Initalizes our swap flag
+	irmovl $36, %esi		
+	addl %esi, %edi			#Pre-empt pointer of the array b/c of loop pointer change
+
+bubblesort:
+    irmovl $36, %esi		
+	subl %esi, %edi			#Pointing to begining of array
+	irmovl $0, %ecx			#Sets ecx(forloop counter) to 0
+	irmovl $1, %esi
+	xorl %ebx, %esi			#If swapflag!= 0 
+	je end
+	irmovl $1, %ebx			#make swapflag == 0
+
+loop:
+	mrmovl (%edi), %eax		#puts array[i] into eax
+	mrmovl  4(%edi), %edx	#puts array[i+1] into edx
+	subl %eax, %edx			#comapritive, to check if eax < edx
+	jl swap
+
+loop2:
+    irmovl $4, %esi
+	addl %esi, %edi			#Adding 4 to pointer loc
+    irmovl $1, %esi
+	addl %esi, %ecx			#Added one to loop counter
+    irmovl $9, %esi
+	subl %ecx, %esi			#This is for comparing.
+	jne loop 				#Jumps if counter is not 9
+	jmp bubblesort
+
+swap:
+	mrmovl (%edi), %eax		#Moves array[i] into eax (repeating b/c of subl comparison)
+	mrmovl  4(%edi), %edx	#Moves array[i+1] into eax
+	rmmovl %eax, 4(%edi)	#Swaps what's in array[i+1]
+	rmmovl  %edx, (%edi)	#Swaps what's in array[i]
+    irmovl $0, %esi
+	rrmovl %esi, %ebx		#Makes swap flag back to - (indicating we need more swaps)
+	jmp loop2
+
+end:
+	rrmovl %ebp, %esp
+	popl %ebp
+	ret
+
+
+
+.pos 0x100
+Stack: .long 0

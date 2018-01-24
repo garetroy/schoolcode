@@ -1,0 +1,78 @@
+package assignment5;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+
+
+public class assingment5{
+	public static ArrayList<String[]> data = new ArrayList<String[]>();
+	public static ArrayList<String[]> data2 = new ArrayList<String[]>();
+		public static void main(String[] args){
+			readFile();
+			selectionSort(data2);
+		}
+		
+		
+		private static void readFile(){		
+		    try {
+		    	URL dataSrc = new URL(
+		    			"https://www.cs.uoregon.edu/Classes/14F/cis212/assignments/phonebook.txt");
+		    URLConnection conn = dataSrc.openConnection();
+		    	BufferedReader br = new BufferedReader(
+		    			new InputStreamReader(conn.getInputStream())); 
+		    	
+		    //	BufferedReader brFile = new BufferedReader(
+		    			//new FileReader("Usr/meng/Desktop/data.txt"));
+		    	
+		        String line = br.readLine();
+		        int temp = 10;
+		        while (line != null) {
+		        		String[] parts=line.split(" ");
+		        		data.add(parts);
+		        		if (temp != 0){
+		        			data2.add(parts);
+		        			temp = temp -1;
+		        		}
+		            line = br.readLine();
+		        }	       
+		        br.close();
+		    }
+		    catch(Exception e){
+		    	System.err.print("File reading error!");
+		    	System.err.print(e.getMessage());
+		    }
+		    
+		}
+		
+		public static void selectionSort(ArrayList<String[]> data){
+			ArrayList<String[]> newarraylist = data;
+			for(int i = 0; i < newarraylist.size(); i++){
+				String[] dataLine=newarraylist.get(i);
+				String currentminimum = dataLine[1].substring(0, dataLine[1].length()-1);
+				for(int j=i+1; j < newarraylist.size(); j++){
+					dataLine=newarraylist.get(j);
+					String current = dataLine[1].substring(0, dataLine[1].length()-1);
+					if (currentminimum.compareTo(current) < 0){
+						String[] temp = newarraylist.get(j);
+						newarraylist.set(j, newarraylist.get(i));
+						newarraylist.set(i, temp);
+
+					}
+			
+				}
+			}
+			for(int k = 0; k < newarraylist.size(); k++){
+				String[] dataLine2 = newarraylist.get(k);
+				System.out.println(dataLine2[1].substring(0, dataLine2[1].length()-1));
+			
+		}
+
+		}
+

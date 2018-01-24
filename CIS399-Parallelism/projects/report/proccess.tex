@@ -1,0 +1,25 @@
+\chapter*{Proccess of Parallelizing}
+
+\subsection*{Serial Optimizations}
+
+    The first thing we did before we embarked on actually parallelizing this project was to optimize our serial code in specified regions. Typically, when optimizing code you look for a certian number of things. The following is what we focused on. 
+
+\begin{itemize}
+    \item Cache misses, when the code recalls data that will more than likley no longer be in the cache at lower level memory, it can cause our program to take a lot longer than desired or expected. We focused on trying to keep memory used more frequently local.  
+    \item Over allocated variables, for example when variables are created in a for loop. Not only does this increase the amount of memory, but it increases cache reads/writes as well. This can lead to an excruciating dip in preformance. Typically to solve this problem we would try to define the variables and allocate them as soon as possible to reduce the frequency of creation and writing to variables.
+    \item Passed parameter optimization, this is when a funcion is passed a copy or a pointer when not needed. The problem that this creates is the speed at which items can be passed can bottleneck preformance enough to sometimes lead to a noticble difference. Our method of reducing such a problem is to either pass references instead of pointers, eliminate them from being passed at all, or to pass a pointer/reference instead of a whole copy of the data.
+\end{itemize}
+
+\subsection*{Work Stealing vs. Work Sharing}
+Work-sharing a parallel construct in which a program shares part of the data between different processors or threads in able to execute the program. There are plenty of different patterns to achieve the desired output. Where work stealing is different is that it will take any work from a thread if it is idle in order to not waste it's processing power.
+
+\subsection*{Summary of optimization}
+
+\subsubsection*{OpenMP}
+OpenMP follows a work sharing approach for scheduling tasks in parallel, which is not very efficient at load balancing. The program can only be as fast as the slowest thread in the system
+
+Our solution to solve this problem was to try multiple different methods. The first method we attempted was tasks, which we were hoping that the threads would have more data per thread, so that there would be less idle time per thread. This proved to be of minimal success. The next attempt was to try chuncking the data within the for loops. Chunking is the proccess of setting a set size per thread/processor to do a set size of work. This proved to improve preformance, but only minimally. Lastly, we tried to increase the stacksize that each thread could have. This was also with the hope that there would be less idle time per thread and allow for the threads to do more evenly distribute work, this also minimally impacted preformence. 
+
+\subsubsection{CilkPlus and TBB}
+Cilk and TBB actually preformed great in our rasterizer. We actually had an incredible increase in speedup(almost linear) evident from our results while parallelizing our code with these two languages. We focused on the main functions and the scan line algorithm implementation. This speedup is good because Cilk and TBB use work stealing model to schedule it's threads.
+

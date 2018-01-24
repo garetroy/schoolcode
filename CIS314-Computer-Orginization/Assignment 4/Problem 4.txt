@@ -1,0 +1,22 @@
+
+g:
+pushl %ebp 			//pushes ebp onto stack
+movl %ebp, %esp 	//sets stack and base pointer to eachother
+movl 8(%ebp), %eax 	// creates int a
+movl 12(%ebp), %ebx // creates int b
+movl %eax, %edi		// puts eax into function variable edi
+call f				// jumps to the f function
+movl %eax, %ecx 	// puts eax (int a * 16) into ecx
+movl %ebx, %edi 	// buts ebx (int b) into edi for manipulation
+call f				// goes to f function
+addl %ecx, %eax 	// adds inta and intb (after multiplied by 16) together 						into the return register eax
+popl %esp
+popl %ebp
+
+f:					//f function
+pushl %ebp 			//pushes ebp onto stack
+movl %ebp, %esp 	//sets stack and base pointer to eachother
+imul $16, %edi		// multiplys edi by 16
+movl %edi, %eax		//puts edi into eax for returning
+ret 				//returns to position in code
+popl %ebp			//removes the base pointer

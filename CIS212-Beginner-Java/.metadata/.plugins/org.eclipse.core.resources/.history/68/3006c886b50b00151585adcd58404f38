@@ -1,0 +1,95 @@
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+
+public class Client extends JFrame {
+	private static final int PORT = 99823;
+	private static final String SHUTDOWN = "shutdown";
+	
+
+	private ObjectOutputStream _output;
+	private ObjectInputStream _input;
+	private JTextArea _txtArea;
+	private JTextField _txtField;
+
+	public Client() {
+		setLayout(new BorderLayout());
+		_textArea = new JTextArea(12, 40);
+		_textArea.setEditable(false);
+		add(new JScrollPane(_textArea), BorderLayout.CENTER);
+		_textField = new JTextField(40);
+		_textField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				String message = _textField.getText();
+				sendMessage(message);
+				if(message.equals(SHUTDOWN)) closeGUI();
+				_textField.setText("");
+			}
+		});
+		add(_textField, BorderLayout.SOUTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		pack();
+		setVisible(true);
+		
+		// connecting to server
+		try {
+			InetAddress address = InetAddress.getLocalHost();
+			Socket socket = new Socket(address, PORT);
+			System.out.println("client connected!");
+			_outputStream = new ObjectOutputStream(socket.getOutputStream());
+			_outputStream.flush();
+			_inputStream = new ObjectInputStream(socket.getInputStream());
+			_outputStream.flush();
+			boolean running = true;
+			_textArea.append("Enter a message: \n");
+			while (running) {
+				String message = _inputStream.readUTF();
+				_textArea.append(message + "\n");
+			}
+			// closing client
+			_inputStream.close();
+			_outputStream.close();
+			socket.close();			
+			System.out.println("client shutting down");		
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}		
+	}
+	
+	private void sendMessage(String message) {
+		/*
+		 * A method that sends a message to whatever server 
+		 * the client is connected to via the client's outputsteam
+		 */
+		if (_outputStream == null) {
+			return;
+		}
+		try {
+			_outputStream.writeUTF(message);
+			_outputStream.flush();
+		} catch (IOException ex) {
+			System.err.println("Unable to send message" + ex);
+		}
+	}
+	private void closeGUI(){
+		// closes the GUI window which also terminates the client
+		System.out.println("shutdown called; GUI closing & terminating client");
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+	public static void main(String[] args) {
+		new Client();
+	}
+}

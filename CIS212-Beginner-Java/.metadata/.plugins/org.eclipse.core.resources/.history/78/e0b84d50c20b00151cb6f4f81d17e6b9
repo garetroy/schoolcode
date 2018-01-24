@@ -1,0 +1,80 @@
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+
+public class Server {	
+	private static final int PORT = 1235;
+	private static final String SHUTDOWN = "";
+	private static List<Integer> Numbers;
+	
+	public static void main(String[] args) {		
+		System.out.println("Server started!");
+		
+		try {
+			InetAddress localHost = InetAddress.getLocalHost();
+			System.out.println("My IP address is: " + localHost);			
+			
+			ServerSocket serverSocket = new ServerSocket(PORT);
+			boolean runServer = true;
+
+			while (runServer) {
+				Socket socket = null;
+				ObjectInputStream inputStream = null;
+				ObjectOutputStream outputStream = null;
+				try {
+					System.out.println("ServerSocket created, waiting for connection...");
+		
+					socket = serverSocket.accept();
+		
+					System.out.println("Socket connected, creating streams!");
+		
+					outputStream = new ObjectOutputStream(socket.getOutputStream());
+					outputStream.flush();
+					
+					inputStream = new ObjectInputStream(socket.getInputStream());
+		
+					System.out.println("Message sent, receiving message...");
+					
+					boolean running = true;
+					while (running) {
+						String message = inputStream.readUTF();
+						try{
+							if (message.equals(SHUTDOWN)) {
+								runServer = false;
+								break;
+							}
+							} catch(EOFException ex){
+								socket.close();
+								break;
+							}
+						try{
+								int clientint = Integer.parseInt(message);
+								Numbers.add(clientint);
+							} catch (NumberFormatException ex){
+								outputStream.writeUTF("Can't be an string");
+							}
+						outputStream.writeUTF(message);
+				} finally {
+					if (inputStream != null) {
+						inputStream.close();
+					}
+					if (outputStream != null) {
+						outputStream.close();
+					}
+					if (socket != null) {
+						socket.close();
+					}
+					
+					System.out.println("Cleanup successful!");
+				}
+				}
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}		
+	}

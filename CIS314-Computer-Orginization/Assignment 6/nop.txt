@@ -1,0 +1,18 @@
+addl %eax %eax
+mrmovl 0(%ecx), %ebx
+addl %ebx, %eax
+
+
+
+fdemw
+ fdemw
+  fdemw
+
+This is the original one. The problem is this is the last addl is dependant on ebx, but ebx hasn't been written to by the mrmovl when addl tries to decode, so we need three nops to wait until we can decode after mrmovl has written back.
+
+fdemw
+ fdemw
+ nop
+ nop
+ nop
+     fdemw

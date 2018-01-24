@@ -1,0 +1,129 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.Color;
+import javax.swing.JLabel;
+
+
+public class Main {
+	
+	public static PaintCanvas _paintingcanvas;
+	
+	public static void main( String[] args ){
+		JFrame frame = new JFrame("Paint");
+		frame.setLayout(new BorderLayout());
+		JPanel colorsPanel = new JPanel();
+		JPanel sizesPanel = new JPanel();
+		 _paintingcanvas = new PaintCanvas();
+		 _paintingcanvas.setBackground(Color.WHITE);
+		 _paintingcanvas.setPreferredSize(new Dimension(640,480));
+		 frame.add(_paintingcanvas, BorderLayout.CENTER);
+		 
+		 JButton pinkBtn = new JButton("Purple");
+		 pinkBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.pinkdraw();	
+				}	
+			});
+		 JButton greenBtn = new JButton("Green");
+		 greenBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.greendraw();	
+				}	
+			});
+		 JButton blackBtn = new JButton("Black");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.blackdraw();	
+				}	
+			});
+		 JButton redBtn = new JButton("Red");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.reddraw();	
+				}	
+			});
+		 JButton yellowBtn = new JButton("Yellow");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.yellowdraw();	
+				}	
+			});
+		 JButton whiteBtn = new JButton("White");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.whitedraw();	
+				}	
+			});
+		 JButton smallBtn = new JButton("Small");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.smalldraw();	
+				}	
+			});
+		 JButton mediumBtn = new JButton("Medium");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.mediumdraw();	
+				}	
+			});
+		 JButton largeBtn = new JButton("Large");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.largedraw();	
+				}	
+			});
+		 JButton hugeBtn = new JButton("Huge");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.hugedraw();	
+				}	
+			});
+		 JButton clearBtn = new JButton("Clear");
+		 purpleBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_paintingcanvas.cleardraw();	
+				}	
+			});
+				
+		 colorsPanel.add(purpleBtn);
+		 colorsPanel.add(greenBtn);
+		 colorsPanel.add(blackBtn);
+		 colorsPanel.add(redBtn);
+		 colorsPanel.add(yellowBtn);
+		 colorsPanel.add(whiteBtn);
+		 sizesPanel.add(smallBtn);
+		 sizesPanel.add(mediumBtn);
+		 sizesPanel.add(largeBtn);
+		 sizesPanel.add(hugeBtn);
+		 sizesPanel.add(clearBtn);
+		 frame.add(colorsPanel, BorderLayout.WEST);
+		 frame.add(sizesPanel, BorderLayout.EAST);
+		 frame.pack();
+		 frame.setVisible(true);
+	}
+
+}

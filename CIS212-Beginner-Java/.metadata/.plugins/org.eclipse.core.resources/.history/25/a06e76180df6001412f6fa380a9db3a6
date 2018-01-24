@@ -1,0 +1,76 @@
+package assignment5;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+
+
+public class assingment5{
+	public static ArrayList<person> data = new ArrayList<person>();
+	public static ArrayList<person> data2 = new ArrayList<person>();
+		public static void main(String[] args){
+			readFile();
+			selectionSort(data2);
+		}
+		
+		
+		private static void readFile(){		
+		    try {
+		    	URL dataSrc = new URL(
+		    			"https://www.cs.uoregon.edu/Classes/14F/cis212/assignments/phonebook.txt");
+		    URLConnection conn = dataSrc.openConnection();
+		    	BufferedReader br = new BufferedReader(
+		    			new InputStreamReader(conn.getInputStream())); 
+		    	
+		    //	BufferedReader brFile = new BufferedReader(
+		    			//new FileReader("Usr/meng/Desktop/data.txt"));
+		    	
+		        String line = br.readLine();
+		        int temp = 10;
+		        while (line != null) {
+		        		String[] parts=line.split(" ");
+		        		parts[1] = parts[1].replace(",", "");
+		        		person ent = new person(Integer.parseInt(parts[0]), parts[1], parts[2]);
+		        		data.add(ent);
+		        		if (temp != 0){
+		        			data2.add(ent);
+		        			temp = temp -1;
+		        		}
+		            line = br.readLine();
+		        }	       
+		        br.close();
+		    }
+		    catch(Exception e){
+		    	System.err.print("File reading error!");
+		    	System.err.print(e.getMessage());
+		    }
+		    
+		}
+		
+		public static void selectionSort(ArrayList<person> data){
+			int n = data.size();
+			ArrayList<person> 
+			int i, j, minIndex;
+			for (i = 0; i < n - 1; i++) {
+				minIndex = i;
+				for (j = i + 1; j < n; j++) {
+					if ((arrayList.get(j)).getName().compareTo(
+							arrayList.get(minIndex).getName()) < 0) {
+						minIndex = j;
+					}
+				}
+				if (minIndex != j) {
+					// doing a swap
+					Entry toMove = arrayList.get(i);
+					arrayList.set(i, arrayList.get(minIndex));
+					arrayList.set(minIndex, toMove);
+				}
+			}
+			return arrayList;
+

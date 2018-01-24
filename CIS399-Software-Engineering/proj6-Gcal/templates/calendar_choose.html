@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en"> <head>
+<title>Appointments</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css"
+     href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css"
+/>
+
+<link rel="stylesheet" type="text/css"
+ href="/static/js/node_modules/bootstrap-daterangepicker/daterangepicker.css"
+/>
+
+<link rel="stylesheet" type="text/css"
+    href="/static/css/busy.css"
+/>
+
+<!-- jquery from a content distribution network; probably cached -->
+<script type="text/javascript"
+     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+
+
+<!-- The rest of our javascript dependencies are bundled and -->
+<!-- 'minified' by 'browserify'  -->
+<script type="text/javascript" 
+   src="/static/js/busy.min.js">
+</script>
+
+</head>
+
+<body>
+<div class="container">
+
+<h1>Choose Your Calendar</h1>
+<h3>Choose the calendar you want to compare with your friends</h3>
+<div class="row">
+{% if session.calendars is defined  %}
+  <form action='/which_calendar' method="post">
+  <select name="calendars">
+  {% for cal in session.calendars if cal.selected %}
+          <option value="{{ cal.id }}">{{ cal.summary }}</option>
+  {% endfor %}
+  </select>
+{% endif %}
+</div>
+<div class="row">
+    <button type="submit">Submit</button>
+</div>
+</form>
+{% if session.link is defined  %}
+  <div id="previousid">Your link to share is: {{ session.link }}</div>
+{% endif %}
+  </div>  <!-- container (for bootstrap) -->
+  </body> </html>

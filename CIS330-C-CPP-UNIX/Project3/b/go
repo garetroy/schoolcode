@@ -1,0 +1,4 @@
+make
+./proj3B input.pnm output.pnm
+pnmtopng < output.pnm > g.png
+open g.png

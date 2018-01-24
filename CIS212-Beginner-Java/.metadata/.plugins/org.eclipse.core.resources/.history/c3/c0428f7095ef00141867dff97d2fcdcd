@@ -1,0 +1,50 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.Color;
+import javax.swing.JLabel;
+
+
+public class Main {
+	
+	public static paintcanvas _paintingcanvas;
+	
+	public static void main( String[] args ){
+		JFrame frame = new JFrame("Paint");
+		frame.setLayout(new BorderLayout());
+		JPanel colorsPanel = new JPanel();
+		 _paintingcanvas = new paintcanvas();
+		 _paintingcanvas.setBackground(Color.WHITE);
+		 frame.add(_paintingcanvas, BorderLayout.CENTER);
+		 
+		 JButton purpleBtn = new JButton("Purple");
+		 purpleBtn.addActionListener(new ActionListener(){
+			 public void actionPreformed(ActionEvent e){
+				 _paintingcanvas.purpledraw();
+			 }
+				
+			});
+
+
+				
+			}
+		 }
+	}
+
+	class paintcanvas extends JPanel{
+		public void purpledraw() {
+			
+}
+}

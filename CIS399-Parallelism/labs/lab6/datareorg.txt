@@ -1,0 +1,10 @@
+
+For my data reorginization I didn't reoriginize too much. Instea in my for loop I added a line in between two forloops,
+this provided for more cache hits. The line made it so that the cache would store the result instead of dispose of it
+and have to retrieve it from memory again.
+
+Serial time: .539536 Seconds
+Parallel time: .248396
+
+Serial mflops: 3706.20
+Parallel mflops: 8051.66

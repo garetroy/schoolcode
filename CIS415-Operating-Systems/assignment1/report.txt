@@ -1,0 +1,5 @@
+Everything in my implementation works except for leak free. For some reason when using free's it gives seg fault. But other wise all is tested and works well. 
+
+On my hashmap my size was resized by double its size.
+
+During this project (as you will see in my source code) my solutions come from a mixture of myself, Chris Brooks, Howard Lin, and Jack Brockway. No copied code, but disscussed our implementation openly. (only for mlist.c)
